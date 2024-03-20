@@ -1,0 +1,11 @@
+{
+  "name": "Po sosedstvu",
+  "short_name": "Po sosedstvu",
+  "icons": [{
+    "src": "apple-touch-icon-512x512.png",
+    "sizes": "512x512"
+  }],
+  "background_color": "#ffe100",
+  "theme_color": "#000",
+  "display": "fullscreen"
+}
