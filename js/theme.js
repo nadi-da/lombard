@@ -569,7 +569,8 @@ $(document).ready(function() {
         }
         if(dateFrom.val() != '' && dateTo.val() != '') {
             //console.log(new Date(changeDateFormat(dateFrom.val())));
-            dayQty = getNumberOfDays(changeDateFormat(dateFrom.val()),changeDateFormat(dateTo.val())) + 1;
+            dayQty = getNumberOfDays(changeDateFormat(dateFrom.val()),changeDateFormat(dateTo.val()));
+            if(dayQty == 0) dayQty = 1;
             if(dayQty > 31) {
                 err++;
                 errMess += "Максимальный срок залога - 31 день <br>"
@@ -591,12 +592,13 @@ $(document).ready(function() {
                 sum = 0,
                 discount = 0;
             //считаем проценты
+            percSum = inputSum * 1.2 / 100;
             if(dayQty <= 10) {
-                percSum = inputSum * 0.012 * dayQty;
+                percSum += inputSum * 1.2 / 100 * dayQty;
             } else if(dayQty <= 20) {
-                percSum = (inputSum * 0.12) + (inputSum * 0.01 * (dayQty - 10));
+                percSum += (inputSum * 1.2 / 100 * 10) + (inputSum * 1 /100 * (dayQty - 10));
             } else {
-                percSum = (inputSum * 0.12) + (inputSum * 0.1) + (inputSum * 0.08 * (dayQty - 20));
+                percSum += (inputSum * 1.2 / 100 * 10) + (inputSum * 1 / 100 * 10) + (inputSum * 0.8 / 100 * (dayQty - 20));
             }
             //скидка от суммы
             if(inputSum >= 100 && inputSum < 500) {
