@@ -497,10 +497,12 @@ $(document).ready(function() {
     $(document).mousedown(function (e) {
         let mobileMenu =  $("body").find('#mega-menu-holder'),
             menuBtn = $("body").find('.collapse-button');
-        if (mobileMenu.css('display')!='none' && mobileMenu.has(e.target).length === 0 && !$(e.target).is('#mega-menu-holder') && menuBtn.has(e.target).length === 0 && !$(e.target).is('.collapse-button')){
-            $("body").find(".collapse-button").click();
+        if(mobileMenu.hasClass("collapsed")) {
+            if (mobileMenu.css('display')!='none' && mobileMenu.has(e.target).length === 0 && !$(e.target).is('#mega-menu-holder') && menuBtn.has(e.target).length === 0 && !$(e.target).is('.collapse-button')){
+                $("body").find(".collapse-button").click();
+                return false;
+            }
         }
-        return false;
     });
 
 
