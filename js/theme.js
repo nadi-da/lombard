@@ -491,7 +491,9 @@ $(document).ready(function() {
     });
 
     $("body").on("mouseleave", "#mega-menu-holder", function() {
-        $("body").find(".collapse-button").click();
+        if($(this).hasClass("collapsed")) {
+            $("body").find(".collapse-button").click();
+        }
     })
 
     $(document).mousedown(function (e) {
