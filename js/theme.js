@@ -528,6 +528,7 @@ $(document).ready(function() {
         locale: 'ru',
         format: 'DD.MM.YYYY',
         defaultDate: false,
+        minDate: new Date(),
         //minDate: new Date(new Date().setDate(new Date().getDate() + 1)),
     }).on('dp.change', function (e) {
         hideCalcRes();
