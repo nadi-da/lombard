@@ -487,9 +487,22 @@
 $(document).ready(function() {
 
     $("body").on("click", "#mega-menu-holder li", function () {
-        console.log('click');
         $("body").find(".collapse-button").click();
     });
+
+    $("body").on("mouseleave", "#mega-menu-holder", function() {
+        $("body").find(".collapse-button").click();
+    })
+
+    $(document).mousedown(function (e) {
+        let mobileMenu =  $("body").find('#mega-menu-holder'),
+            menuBtn = $("body").find('.collapse-button');
+        if (mobileMenu.css('display')!='none' && mobileMenu.has(e.target).length === 0 && !$(e.target).is('#mega-menu-holder') && menuBtn.has(e.target).length === 0 && !$(e.target).is('.collapse-button')){
+            $("body").find(".collapse-button").click();
+        }
+        return false;
+    });
+
 
     $('[data-type="scroll-down"]').on('click', function(e) {
         e.preventDefault();
