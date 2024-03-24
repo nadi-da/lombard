@@ -588,7 +588,7 @@ $(document).ready(function() {
         if(dateFrom.val() != '' && dateTo.val() != '') {
             console.log(`dateFrom.val() - ${dateFrom.val()}`);
             console.log(`dateTo.val() - ${dateTo.val()}`);
-            dayQty = getNumberOfDays(changeDateFormat(dateFrom.val()),changeDateFormat(dateTo.val()));
+            dayQty = getNumberOfDays(dateFrom.val(),dateTo.val());
             console.log(`dayQty - ${dayQty}`);
             if(dayQty == 0) dayQty = 1;
             if(dayQty > 31) {
@@ -674,12 +674,11 @@ $(document).ready(function() {
         //const date1 = new Date(start);
         //const date2 = new Date(end);
 
-        const dateArr1 = start.split(',');
+        const dateArr1 = start.split('.').reverse();
         const startNew = new Date(parseInt(dateArr1[0]), parseInt(dateArr1[1]), parseInt(dateArr1[2]));
-        console.log(`startNew - ${startNew}`);
         const date1 = new Date(startNew);
 
-        const dateArr2 = end.split(',');
+        const dateArr2 = end.split('.').reverse();
         const endNew = new Date(parseInt(dateArr2[0]), parseInt(dateArr2[1]), parseInt(dateArr2[2]));
         const date2 = new Date(endNew);
 
@@ -690,7 +689,6 @@ $(document).ready(function() {
 
         // Calculating the time difference between two dates
         const diffInTime = date2.getTime() - date1.getTime();
-        console.log(date2.getTime());
 
         // Calculating the no. of days between two dates
         const diffInDays = Math.round(diffInTime / oneDay);
