@@ -673,6 +673,8 @@ $(document).ready(function() {
         const date1 = new Date(start);
         const date2 = new Date(end);
 
+        console.log(`date1 - ${date1}`);
+
         // One day in milliseconds
         const oneDay = 1000 * 60 * 60 * 24;
 
