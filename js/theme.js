@@ -670,8 +670,18 @@ $(document).ready(function() {
 
     function getNumberOfDays(start, end) {
 
-        const date1 = new Date(start);
-        const date2 = new Date(end);
+        // ios так не понимает:
+        //const date1 = new Date(start);
+        //const date2 = new Date(end);
+
+        const dateArr1 = start.split(',');
+        const startNew = new Date(parseInt(dateArr1[0]), parseInt(dateArr1[1]), parseInt(dateArr1[2]));
+        console.log(`startNew - ${startNew}`);
+        const date1 = new Date(startNew);
+
+        const dateArr2 = end.split(',');
+        const endNew = new Date(parseInt(dateArr2[0]), parseInt(dateArr2[1]), parseInt(dateArr2[2]));
+        const date2 = new Date(endNew);
 
         console.log(`date1 - ${date1}`);
 
