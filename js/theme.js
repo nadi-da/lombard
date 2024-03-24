@@ -586,8 +586,10 @@ $(document).ready(function() {
             dateTo.closest('[data-type="input-wrap"]').addClass('error');
         }
         if(dateFrom.val() != '' && dateTo.val() != '') {
-            //console.log(new Date(changeDateFormat(dateFrom.val())));
+            console.log(`dateFrom.val() - ${dateFrom.val()}`);
+            console.log(`dateTo.val() - ${dateTo.val()}`);
             dayQty = getNumberOfDays(changeDateFormat(dateFrom.val()),changeDateFormat(dateTo.val()));
+            console.log(`dayQty - ${dayQty}`);
             if(dayQty == 0) dayQty = 1;
             if(dayQty > 31) {
                 err++;
