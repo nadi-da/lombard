@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- добавим стили mocha для отображения результатов -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+  <!-- добавляем сам фреймворк mocha -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+  <script>
+    // включаем режим тестирования в стиле BDD
+    mocha.setup('bdd');
+  </script>
+  <!-- добавим chai -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+  <script>
+    // chai предоставляет большое количество функций. Объявим assert глобально
+    let assert = chai.assert;
+  </script>
+</head>
+
+<body>
+
+<script>
+  function calc(sumInp, start, end) {
+    let rateArr = Array(1.2, 2.4, 3.6, 4.8, 6, 7.2, 8.4, 9.6, 10.8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 22.8, 23.6, 24.4, 25.2, 26, 26.8, 27.6, 28.4, 29.2, 30, 30.80);
+
+    let dayQty = getNumberOfDays(start,end);
+    let inputSum = parseFloat(sumInp),
+        percSum = 0,
+        sum = 0,
+        discount = 0;
+    percSum = inputSum * rateArr[dayQty] / 100;
+    //скидка от суммы
+    if(inputSum >= 100 && inputSum < 500) {
+      discount = percSum*0.1;
+    }
+    if(inputSum >= 500 && inputSum < 1000) {
+      discount = percSum*0.2;
+    }
+    if(inputSum >= 1000 && inputSum < 3000) {
+      discount = percSum*0.3;
+    }
+    if(inputSum >= 3000) {
+      discount = percSum*0.5;
+    }
+    sum = inputSum + percSum - discount;
+    return parseFloat(sum.toFixed(2));
+  }
+
+  function getNumberOfDays(start, end) {
+
+    // ios так не понимает:
+    //const date1 = new Date(start);
+    //const date2 = new Date(end);
+
+    const dateArr1 = start.split('.').reverse();
+    const startNew = new Date(parseInt(dateArr1[0]), parseInt(dateArr1[1]-1), parseInt(dateArr1[2]), 0, 0, 0);
+    const date1 = new Date(startNew);
+
+    const dateArr2 = end.split('.').reverse();
+    const endNew = new Date(parseInt(dateArr2[0]), parseInt(dateArr2[1]-1), parseInt(dateArr2[2]), 0, 0, 0);
+    const date2 = new Date(endNew);
+
+    // One day in milliseconds
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    // Calculating the time difference between two dates
+    const diffInTime = date2.getTime() - date1.getTime();
+
+    // Calculating the no. of days between two dates
+    const diffInDays = Math.round(diffInTime / oneDay);
+
+    return diffInDays;
+  }
+</script>
+
+<!-- скрипт со спецификацией (describe, it...) -->
+<script src="test.js"></script>
+
+<!-- элемент с id="mocha" будет содержать результаты тестов -->
+<div id="mocha"></div>
+
+<!-- запускаем тесты! -->
+<script>
+  mocha.run();
+</script>
+</body>
+
+</html>

@@ -587,13 +587,12 @@ $(document).ready(function() {
         }
         if(dateFrom.val() != '' && dateTo.val() != '') {
             dayQty = getNumberOfDays(dateFrom.val(),dateTo.val());
-            if(dayQty == 0) dayQty = 1;
-            if(dayQty > 31) {
+            if(dayQty > 30) {
                 err++;
                 errMess += "Максимальный срок залога - 31 день <br>"
                 dateTo.closest('[data-type="input-wrap"]').addClass('error');
             }
-            if(dayQty < 1) {
+            if(dayQty < 0) {
                 err++;
                 errMess += "Минимальный срок залога - 1 день <br>"
                 dateTo.closest('[data-type="input-wrap"]').addClass('error');
@@ -604,19 +603,13 @@ $(document).ready(function() {
             $('.calc-results-err').html(errMess).fadeIn();
             return false;
         } else {
-            let inputSum = parseFloat(sumInput.val());
+            let rateArr = Array(1.2, 2.4, 3.6, 4.8, 6, 7.2, 8.4, 9.6, 10.8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 22.8, 23.6, 24.4, 25.2, 26, 26.8, 27.6, 28.4, 29.2, 30, 30.80);
+            let inputSum = parseFloat(sumInput.val()),
                 percSum = 0,
                 sum = 0,
                 discount = 0;
-            //считаем проценты
-            percSum = inputSum * 1.2 / 100;
-            if(dayQty <= 10) {
-                percSum += inputSum * 1.2 / 100 * dayQty;
-            } else if(dayQty <= 20) {
-                percSum += (inputSum * 1.2 / 100 * 10) + (inputSum * 1 /100 * (dayQty - 10));
-            } else {
-                percSum += (inputSum * 1.2 / 100 * 10) + (inputSum * 1 / 100 * 10) + (inputSum * 0.8 / 100 * (dayQty - 20));
-            }
+            // проценты
+            percSum = inputSum * rateArr[dayQty] / 100;
             //скидка от суммы
             if(inputSum >= 100 && inputSum < 500) {
                 discount = percSum*0.1;
@@ -631,7 +624,7 @@ $(document).ready(function() {
                 discount = percSum*0.5;
             }
             sum = inputSum + percSum - discount;
-            $('[data-type="all-day-calc"]').html(dayQty);
+            $('[data-type="all-day-calc"]').html(dayQty + 1);
             $('[data-type="return-calc"]').html(getMoneyFormat(sum));
             $('[data-type="perc-calc"]').html(getMoneyFormat(percSum));
             if(discount > 0) {
@@ -672,11 +665,11 @@ $(document).ready(function() {
         //const date2 = new Date(end);
 
         const dateArr1 = start.split('.').reverse();
-        const startNew = new Date(parseInt(dateArr1[0]), parseInt(dateArr1[1]), parseInt(dateArr1[2]));
+        const startNew = new Date(parseInt(dateArr1[0]), parseInt(dateArr1[1] - 1), parseInt(dateArr1[2]), 0, 0, 0);
         const date1 = new Date(startNew);
 
         const dateArr2 = end.split('.').reverse();
-        const endNew = new Date(parseInt(dateArr2[0]), parseInt(dateArr2[1]), parseInt(dateArr2[2]));
+        const endNew = new Date(parseInt(dateArr2[0]), parseInt(dateArr2[1] - 1), parseInt(dateArr2[2]), 0, 0, 0);
         const date2 = new Date(endNew);
 
         console.log(`date1 - ${date1}`);
