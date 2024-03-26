@@ -672,7 +672,7 @@ $(document).ready(function() {
         const endNew = new Date(parseInt(dateArr2[0]), parseInt(dateArr2[1] - 1), parseInt(dateArr2[2]), 0, 0, 0);
         const date2 = new Date(endNew);
 
-        console.log(`date1 - ${date1}`);
+        //console.log(`date1 - ${date1}`);
 
         // One day in milliseconds
         const oneDay = 1000 * 60 * 60 * 24;
